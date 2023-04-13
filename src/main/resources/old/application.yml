@@ -1,0 +1,50 @@
+management:
+  endpoint:
+    beans:
+      enabled: true
+    env:
+      enabled: true
+    health:
+      enabled: true
+    info:
+      enabled: true
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: /manage
+      exposure:
+        include: 'info,health,env,beans,date'
+server:
+  port: 9999
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      auto-commit: true
+      connection-test-query: SELECT 1
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      maximum-pool-size: 200
+      minimum-idle: 10
+      pool-name: HikariCP
+    password: root123%
+    url: jdbc:mysql://localhost:3306/self_test?characterEncoding=UTF-8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  redis:
+    connect-timeout: 30000ms
+    database: 0
+    host: 127.0.0.1
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+    password:
+    port: 6379
