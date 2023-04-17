@@ -1,5 +1,5 @@
 # 项目介绍
-项目包含springboot2.x框架，适用于开发Web项目，其中集成swagger在线文档、smart接口文档，抽象的MVC，Javers审计日志、接口花费时间aop。
+项目包含springboot2.x框架，适用于开发Web项目，其中集成swagger在线文档、smart接口文档，actuator监控工具、基础抽象的MVC，Javers审计日志、接口花费时间aop。
 
 ### 自定义banner
 ```text
@@ -21,6 +21,12 @@ mvn -Dfile.encoding=UTF-8 smart-doc:html
 也可以直接在maven插件中
 选择对应模块->Plugins->smart-doc进行对应的接口文件类型生成
 生成后会在项目中生成smart文件夹
+```
+
+### Actuator监控
+```text
+运行后访问http://localhost:9999/manage
+路由可在application.properties配置文件配置
 ```
 
 ### 待优化以及补充
