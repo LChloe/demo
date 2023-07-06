@@ -159,6 +159,15 @@ public abstract class BaseService<R extends IBaseRepository<M, I>, M, I extends 
     }
 
     /**
+     * update List
+     * @param entityList entityList
+     * @return List
+     */
+    public List<M> updateAll(List<M> entityList) {
+        return baseRepository.saveAllAndFlush(entityList);
+    }
+
+    /**
      * delete.
      *
      * @param id id

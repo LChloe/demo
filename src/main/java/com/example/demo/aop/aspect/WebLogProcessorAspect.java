@@ -1,14 +1,11 @@
 package com.example.demo.aop.aspect;
 
-import cn.hutool.json.JSONConfig;
-import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-import com.example.demo.aop.annotation.WebAuthLogProcessor;
+import com.example.demo.aop.annotation.WebLogProcessor;
 import com.example.demo.base.result.ResponseResult;
 import com.example.demo.entity.OperationalAudit;
 import com.example.demo.service.OperationalAuditService;
-import com.example.demo.utils.ErrorPrintlnUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -34,14 +31,14 @@ import java.util.Map;
 @Component
 @Aspect
 //@Order(1002)
-public class WebAuthLogProcessorAspect {
-    private static final Logger LOGGER = LoggerFactory.getLogger(WebAuthLogProcessorAspect.class);
+public class WebLogProcessorAspect {
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebLogProcessorAspect.class);
 
     @Autowired
     private OperationalAuditService operationalAuditService;
 
-    @Pointcut("@within(com.example.demo.aop.annotation.WebAuthLogProcessor)" +
-    " || @annotation(com.example.demo.aop.annotation.WebAuthLogProcessor)")
+    @Pointcut("@within(com.example.demo.aop.annotation.WebLogProcessor)" +
+    " || @annotation(com.example.demo.aop.annotation.WebLogProcessor)")
     public void pointCut(){
 
     }
@@ -63,7 +60,7 @@ public class WebAuthLogProcessorAspect {
 
     private OperationalAudit auditRecord(ProceedingJoinPoint joinPoint) {
         Map<String, Object> fullParams = getRequestParams(joinPoint);
-        WebAuthLogProcessor webAuthLogProcessor = getAnnotationParams(joinPoint);
+        WebLogProcessor webAuthLogProcessor = getAnnotationParams(joinPoint);
         if (webAuthLogProcessor == null) {//判空做对应的处理
             return saveOperationalAudit(fullParams, null, new HashMap<>(), new String[10]);
         }else {
@@ -118,10 +115,10 @@ public class WebAuthLogProcessorAspect {
      * @param joinPoint aop信息
      * @return 审计注释信息
      */
-    private WebAuthLogProcessor getAnnotationParams(ProceedingJoinPoint joinPoint) {
+    private WebLogProcessor getAnnotationParams(ProceedingJoinPoint joinPoint) {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         //理论上不会报错
-        return methodSignature.getMethod().getAnnotation(WebAuthLogProcessor.class);
+        return methodSignature.getMethod().getAnnotation(WebLogProcessor.class);
     }
 
     /**
@@ -213,7 +210,7 @@ public class WebAuthLogProcessorAspect {
      * @param logParamsResult 审计日志变量的值
      * @param logParams 审计日志变量名
      */
-    private OperationalAudit saveOperationalAudit(Map<String, Object> fullParams, WebAuthLogProcessor webAuthLogProcessor, Map<String, Object> logParamsResult, String[] logParams) {
+    private OperationalAudit saveOperationalAudit(Map<String, Object> fullParams, WebLogProcessor webAuthLogProcessor, Map<String, Object> logParamsResult, String[] logParams) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
         OperationalAudit operationalAudit = new OperationalAudit();

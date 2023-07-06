@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.example.demo.aop.aspect.LogMethodTimeAspect,\
+com.example.demo.aop.aspect.WebLogProcessorAspect

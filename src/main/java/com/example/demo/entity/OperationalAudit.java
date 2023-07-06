@@ -27,4 +27,5 @@ public class OperationalAudit extends BaseEntity<Long> {
     private String fullParams;
     private Integer execStatus;
     private String execMsg;
+
 }

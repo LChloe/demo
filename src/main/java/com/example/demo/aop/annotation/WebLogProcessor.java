@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface WebAuthLogProcessor {
+public @interface WebLogProcessor {
     int value() default 999;
     String prefix() default "Audit Log";
     //示例：新增发布流
